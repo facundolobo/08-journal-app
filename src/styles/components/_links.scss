@@ -1,0 +1,8 @@
+.link{
+    color: $dark-grey;
+    text-decoration: none;
+
+    &:hover{ //cuando el mouse este encima
+        text-decoration: underline;
+    }
+} 
