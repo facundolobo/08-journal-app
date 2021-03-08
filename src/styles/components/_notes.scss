@@ -21,7 +21,9 @@
     height: 100%;
     padding: 20px;
 }
-.notes__title-input,.notes__textarea{
+
+
+.notes__title-input, .notes__textarea {
     border: none;
 
     &:focus{
@@ -30,13 +32,12 @@
 }
 
 .notes__title-input {
-    color: $dark-grey ;
+    color: $dark-grey;
     font-size: 25px;
     font-weight: 700;
     margin-bottom: 10px;
-
 }
-.notes__textarea{
+.notes__textarea {
     border: none;
     color: $dark-grey;
     font-size: 20px;
@@ -44,7 +45,7 @@
     resize: none;
 }
 
-.notes__image{
+.notes__image img {
     box-shadow: 5px 5px $dark-grey;
-   // height: 150px;
+    height: 150px;
 }
