@@ -1,16 +1,22 @@
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { types } from "../components/types/types";
 import { firebase, googleAuthProvider } from "../firebase/firebase-config";
+import { finishLoading, startLoading } from "./ui";
 
 export const startLoginEmailPassword = (email,password) => {
 
     return( dispatch )=>{
+        dispatch (startLoading()) //coloca al state en true
+
         firebase.auth().signInWithEmailAndPassword(email,password)
             .then( ({user}) => {
 
                 dispatch (
                     login(user.uid, user.displayName)
                 )
+                
+                dispatch (finishLoading()) //coloca el loading en false
+
             }).catch(e => console.log(e))
 
         //auth()

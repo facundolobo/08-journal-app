@@ -1,11 +1,12 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth'
 import { useForm } from '../hooks/useForm'
 
 export const LoginScreen = () => {
 
+    const {loading} = useSelector(state => state.ui) //para saber el estado de loading 
 
     const dispatch = useDispatch(); //lo necesitamos para agregar el dispath a redux
     
@@ -56,14 +57,17 @@ export const LoginScreen = () => {
                     onChange={handleInputChange}
                     //--
                 />
-
+   
                 <button
                     type="submit"
                     className="btn btn-primary btn-block"
-                    //disabled={true}
+
+                    disabled={loading}
                 >
-                    Login
+                        Login
                 </button>
+            
+               
 
                 <hr/>
                 <div className="auth__social-networks">
