@@ -15,7 +15,7 @@ export const authReducer = (state = {} , action) => {
                 uid: action.payload.uid,
                 name: action.payload.displayName
             }
-            break;
+           
 
         case types.logout: //si es logout retorna un objeto vacio
             return {} 
