@@ -1,4 +1,5 @@
 //import { useSelector } from "react-redux";
+import Swal from 'sweetalert2' //complemento de internet para ventanas 
 import { types } from "../components/types/types";
 import { firebase, googleAuthProvider } from "../firebase/firebase-config";
 import { finishLoading, startLoading } from "./ui";
@@ -17,7 +18,11 @@ export const startLoginEmailPassword = (email,password) => {
                 
                 dispatch (finishLoading()) //coloca el loading en false
 
-            }).catch(e => console.log(e))
+            }).catch(e =>{ 
+                console.log(e);
+                dispatch (finishLoading());
+                Swal.fire('Error', e.message,'error' ) //muestra el error con ayuda de Swal
+                })
 
         //auth()
         //signIn ... email...password....(email,password)
@@ -36,7 +41,10 @@ export const starRegisterWithEmailPasswordName= (email,password, name) =>{
             dispatch (
                 login(user.uid, user.displayName)
             )
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            console.log(e)
+            Swal.fire('Error', e.message,'error' );
+        })
             
     }
 }
@@ -61,4 +69,17 @@ export const login = (uid,displayName) => ({
             uid,
             displayName
         }
-    })
+    });
+
+
+
+export const startLogout = ()=>{
+    return async(dispatch) =>{
+        await firebase.auth().signOut(); //click logout
+        dispatch(logout() )
+    }
+}    
+
+export const logout = ()=>({
+    type: types.logout
+}   )
