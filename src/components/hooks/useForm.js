@@ -6,8 +6,8 @@ export const useForm = (initialState = {}) => {
         
     
         //funcion para borrar el formulario "vaciar input"
-        const reset = () =>{ 
-            setValue(initialState);
+        const reset = (newFormState = initialState) =>{ 
+            setValue(newFormState);
         }
 
         //es una funcion para que el input se escriba en tiempo real

@@ -6,5 +6,14 @@ export const types = {
     uiRemoveError: '[UI] Remove Error',
 
     uiStartLoading: '[UI] Start loading',
-    uiFinishLoading: '[UI] Finish loading'
+    uiFinishLoading: '[UI] Finish loading',
+
+    notesAddNew: '[Notes] New note',
+    notesActived: '[Notes] Set active note',
+    notesLoad: '[Notes] Load notes',
+    notesUpdated: '[Notes] Update note',
+    notesFileUrl: '[Notes] Update image url',
+    notesDelete: '[Notes] Delete note',
+    notesAddNew: '[Notes] Logout Cleaning'
+
 }

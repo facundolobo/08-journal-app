@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 export const PublicRouter = ({
     isAuthenticated,
     component: Component,
-    ...res //trae todas las otras propiedades
+    ...rest //trae todas las otras propiedades
 }) => {
 
 
 
     return (
-        <Route {...res}
+        <Route {...rest}
         
             component={(props)=> (
                 (isAuthenticated)

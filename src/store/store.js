@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from 'redux-thunk';
 import { authReducer } from "../reducers/authReducer";
+import { notesReducer } from "../reducers/notesReducer";
 import { uiReducer } from "../reducers/uiReducer";
 
 
@@ -10,7 +11,8 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 //funcion para conbinar varios reducer
 const reducers= combineReducers({
     auth: authReducer, //funcion de authReducer que llamaremos auth
-    ui: uiReducer //funcion de uiReducer que llamaremos ui
+    ui: uiReducer, //funcion de uiReducer que llamaremos ui
+    notes: notesReducer
 })
 
 //importar esto en el punto mas alto de la app abajo de index

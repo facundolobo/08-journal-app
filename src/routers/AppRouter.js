@@ -2,45 +2,51 @@ import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-
   Redirect
-} from "react-router-dom";
+} from 'react-router-dom';
    
-import {firebase} from '../firebase/firebase-config'
-
-import { JournalScreen } from '../components/journal/JournalScreen'
-import { AuthRouter } from './AuthRouter'
 import { useDispatch } from 'react-redux';
+import { firebase } from '../firebase/firebase-config'
+import { AuthRouter } from './AuthRouter'
+import { PrivateRoute } from './PrivateRoute';
+import { JournalScreen } from '../components/journal/JournalScreen'
+
 import { login } from '../actions/auth';
 import { PublicRouter } from './PublicRouter';
-import { PrivateRoute } from './PrivateRoute';
 
+import {  startLoadingNotes } from '../actions/notes';
 
 export const AppRouter = () => {
-
-    const [cheking, setCheking] = useState(true) //bandera para saber si esta autentificado
+    
+    const dispatch = useDispatch()
+    
+    const [checking, setChecking] = useState(true) //bandera para saber si esta autentificado
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    const dispatch = useDispatch()
 
     useEffect(() => {
 
-        firebase.auth().onIdTokenChanged((user)=>{ //crean un obsevador que esta pendientes de los cambios de autentificación
+        firebase.auth().onAuthStateChanged(async(user)=>{ //crean un obsevador que esta pendientes de los cambios de autentificación
                 if(user?.uid){//si existe ?
-                    dispatch(login(user.uid,user.displayName)); //enviamos los datos y logeamos
+                    dispatch( login(user.uid, user.displayName)); //enviamos los datos y logeamos
+
                     setIsLoggedIn(true);
+                    
+                    //console.log('app router')
+                    //const notes=  await loadNotes(user.uid); //cargamos todas las notas segun el id usuario
+                    dispatch(startLoadingNotes(user.uid));
                 } else{
                     setIsLoggedIn(false);
                 }
-                setCheking(false)
+                setChecking(false)
         }) 
 
-        setCheking(false)//cambiamos el estado
+        setChecking(false)//cambiamos el estado
 
-    }, [dispatch,cheking]) //si cambia eso se activa
+    }, [dispatch,setIsLoggedIn,setChecking]) //si cambia eso se activa 
 
-    if(cheking){
-        return (<h1>Espere...</h1>)
+    if(checking){
+        return (<h1>Wait...</h1>)
     }
 
     return (
@@ -59,9 +65,9 @@ export const AppRouter = () => {
 
                 <PrivateRoute 
                     exact 
+                    isAuthenticated={isLoggedIn}
                     path="/" 
                     component={ JournalScreen }
-                    isAuthenticated={isLoggedIn}
                 />
 
                 <Redirect to="/auth/login"/>
