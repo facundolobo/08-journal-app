@@ -2,6 +2,7 @@
 import Swal from 'sweetalert2' //complemento de internet para ventanas 
 import { types } from "../components/types/types";
 import { firebase, googleAuthProvider } from "../firebase/firebase-config";
+import { noteLogout } from './notes';
 import { finishLoading, startLoading } from "./ui";
 
 export const startLoginEmailPassword = (email,password) => {
@@ -77,6 +78,9 @@ export const startLogout = ()=>{
     return async(dispatch) =>{
         await firebase.auth().signOut(); //click logout
         dispatch(logout() )
+        console.log('startLogout')
+        dispatch( noteLogout()) //qquitar las notas de memoria
+        
     }
 }    
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { activeNode } from '../../actions/notes';
+import { activeNode, startDeleting } from '../../actions/notes';
 import { useForm } from '../hooks/useForm';
 import { NotesAppBar } from './NotesAppBar'
 
@@ -9,6 +9,8 @@ export const NoteScreen = () => {
 
     const {active:note} = useSelector(state => state.notes) //renombro a active como note
     const [formValues, handleInputChange, reset] = useForm(note);
+    const {body, title, id } = formValues;
+
 
     const activeId= useRef(note.id); //useRef guarda una variable mutable que no redibujara todo el componente si cambia 
 
@@ -23,9 +25,14 @@ export const NoteScreen = () => {
     useEffect(() => {
         dispatch(activeNode(formValues.id, {...formValues}))
     }, [formValues,dispatch])
+
+    const handleDelete=()=>{
+        //console.log(id)
+        dispatch(startDeleting(id));
+    }
 //    console.log(formValues);
 
-    const {body, title} = formValues;
+    
 
     return (
          <div className="notes__main-content">
@@ -55,12 +62,18 @@ export const NoteScreen = () => {
                     (note.url) 
                     && (<div className="notes__image">
                         <img
-                            src="https://miracomosehace.com/wp-content/uploads/2020/03/fotografia-naturaleza-HD.jpg"
+                            src={note.url}
                             alt="imagen"
                         />
                     </div>)
                 }
            </div>
+           <button
+                className="btn btn-danger"
+                onClick= {handleDelete}
+           > 
+                Delete
+           </button>
         </div>
     )
 }
