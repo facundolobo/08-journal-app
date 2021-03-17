@@ -1,9 +1,10 @@
 import Swal from "sweetalert2";
 
 import { db } from "../firebase/firebase-config";
-import { types } from "../components/types/types";
+
 import { loadNotes } from "../helpers/loadNotes";
 import { fileUpload } from "../helpers/fileUpload";
+import { types } from "../components/types/types";
 
 //react-journal
 
