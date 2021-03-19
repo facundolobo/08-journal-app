@@ -9,7 +9,7 @@ import { types } from "../components/types/types";
 //react-journal
 
 export const startNewNote = () => {
-    return async( dispatch, getState ) => { //obtiene todo es state "getState"
+    return async( dispatch, getState ) => { //obtiene todo el state "getState"
 
         const { uid } = getState().auth; //obtenemos el id del usuario
 //        console.log(uid);
